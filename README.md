@@ -2,72 +2,72 @@
   <img src="icon.png" width="120" alt="Anka app icon" />
 </p>
 
-# Anka — Sigara ve Alkol Bağımlılığından Kurtulma Uygulaması
+# Anka — Smoking & Alcohol Recovery App
 
-*Yargılamayan, sadece yanında olan bir bağımlılık desteği uygulaması.*
+*A judgment-free addiction support app that's simply there with you.*
 
-> Bu repo, App Store gereksinimi olan gizlilik politikası sayfasını barındırmak ve projeyi tanıtmak içindir; kaynak kodu burada yer almaz.
+> This repo hosts the project description and the App Store–required privacy policy page; the source code is not included here.
 
 ## Problem
 
-Sigara veya alkol bırakmaya çalışan biri çoğu zaman üç şeyle baş başa kalır: istek (craving) anında elinde somut bir araç olmaz, ilerlemesini gözle görülür şekilde takip edemez, ve tek dayatılan yol "ya tamamen bırak ya da hiç" olur — alkolde kontrollü azaltmayı tercih edenler için uygun bir orta yol genelde yok.
+Someone trying to quit smoking or drinking is usually left with three gaps: no concrete tool in the moment a craving hits, no clear way to see their progress, and only one path on offer — "quit completely or nothing" — with no good middle ground for people who'd rather cut back on alcohol than quit it outright.
 
-## Çözüm
+## Solution
 
-Anka, kullanıcının kendi hedefini seçmesine izin veren (alkolde "tamamen bırak" ya da "kontrollü azalt"), craving anında nefes ve topraklama egzersizleri + güvenlik ağı (acil durum kişileri) sunan, ilerlemeyi gün sayacı/tasarruf/rozet/12 haftalık takvimle somutlaştıran ve sürçme anında suçlamak yerine yeniden başlatan, tamamen cihazda çalışan (gizlilik öncelikli, hesap gerektirmeyen) bir mobil destek uygulaması.
+Anka lets users choose their own goal (for alcohol, "quit completely" or "cut back with a weekly limit"), gives in-the-moment support during cravings (breathing and grounding exercises, plus a safety net of emergency contacts), makes progress tangible through a streak counter, savings tracker, badges, and a 12-week calendar, and restarts users after a slip instead of shaming them — all running entirely on-device, with privacy by default and no account required.
 
-## Ekran Görüntüleri
+## Screenshots
 
-_TestFlight build'i sonrası eklenecek._
+_Coming soon, after the first TestFlight build._
 
-## Özellikler
+## Features
 
-- Sigara ve alkol için ayrı takip; alkolde **tamamen bırak** / **kontrollü azalt** hedef seçimi ve haftalık içki bütçesi
-- Gerçek zamanlı gün/saat/tasarruf sayaçları ve sağlık kazanım zaman çizelgesi (sigara: 11, alkol: 8 kilometre taşı)
-- **İstek anı SOS** modalı: nefes egzersizi, 5 duyu (grounding) egzersizi, acil durum kişisi arama önerisi
-- Suçlamayan **relapse (sürçme)** akışı — sayaç sıfırlanır, önceki streak motive edici şekilde gösterilir
-- Günlük **check-in**: ruh hâli, craving şiddeti, tetikleyiciler, not — geçmiş kayıtlar günlük (diary) görünümünde
-- 16 rozetli ilerleme sistemi + 12 haftalık renkli ilerleme takvimi (heatmap)
-- Mood–craving korelasyon içgörüsü ve en sık tetikleyici analizi
-- Anlık rozet bildirimleri, özelleştirilebilir günlük hatırlatma, haftalık özet bildirimi
-- Paylaşılabilir ilerleme kartı
-- Türkçe / İngilizce tam dil desteği (cihaz diline göre otomatik seçilir)
-- **%100 yerel veri saklama** — hesap yok, hiçbir veri sunucuya gönderilmiyor
+- Separate tracking for cigarettes and alcohol; for alcohol, choose **quit completely** or **cut back** with a weekly drink budget
+- Real-time day/hour/savings counters and a health-milestone timeline (11 milestones for smoking, 8 for alcohol)
+- **Craving SOS** modal: breathing exercise, 5-senses grounding exercise, one-tap call to an emergency contact
+- A compassionate **relapse** flow — resets the counter and shows the previous streak as motivation instead of punishment
+- Daily **check-ins**: mood, craving intensity, triggers, notes — past entries shown in a diary view
+- A 16-badge progress system plus a 12-week color-coded progress calendar (heatmap)
+- Mood–craving correlation insight and most-frequent-trigger analysis
+- Instant badge notifications, a customizable daily reminder, and a weekly summary notification
+- A shareable progress card
+- Full Turkish / English language support (auto-selected from device locale)
+- **100% local data storage** — no account, nothing ever sent to a server
 
-## Mimari
+## Architecture
 
-Tek katmanlı, sunucusuz bir mobil mimari:
+A simple, single-layer, serverless mobile architecture:
 
-```
 App.tsx
- └─ AppProvider (React Context + AsyncStorage)
-     └─ RootNavigator
-         ├─ OnboardingScreen (ilk kurulum)
-         └─ Bottom Tabs: Anasayfa · Check-in · İstatistik · Ayarlar
-```
+└─ AppProvider (React Context + AsyncStorage)
+└─ RootNavigator
+├─ OnboardingScreen (first-run setup)
+└─ Bottom Tabs: Home · Check-in · Stats · Settings
 
-Bildirimler (günlük hatırlatma, rozet kutlamaları, haftalık özet) `expo-notifications` ile tamamen cihazda zamanlanır; push altyapısı kullanılmaz, hiçbir cihaz token'ı bir sunucuya gönderilmez.
 
-## Teknoloji Yığını
 
-| Katman | Teknoloji |
+Notifications (daily reminders, badge celebrations, weekly summary) are scheduled entirely on-device via `expo-notifications`; no push infrastructure is used, so no device token is ever sent to a server.
+
+## Tech Stack
+
+| Layer | Technology |
 |---|---|
 | Framework | React Native + Expo SDK 54 |
-| Dil | TypeScript |
-| Navigasyon | React Navigation (bottom tabs) |
-| Depolama | AsyncStorage (tamamen yerel) |
-| Bildirimler | expo-notifications (yerel zamanlama) |
-| Görsel paylaşım | react-native-view-shot + expo-sharing |
-| Build / Dağıtım | EAS Build · EAS Submit |
+| Language | TypeScript |
+| Navigation | React Navigation (bottom tabs) |
+| Storage | AsyncStorage (fully local) |
+| Notifications | expo-notifications (local scheduling) |
+| Sharing | react-native-view-shot + expo-sharing |
+| Build / Distribution | EAS Build · EAS Submit |
 
-## Durum
+## Status
 
-🚧 Aktif geliştirme — TestFlight doğrulaması ve App Store gönderimine hazırlanıyor.
+🚧 Actively in development — preparing for TestFlight verification and App Store submission.
 
-## Gizlilik
+## Privacy
 
-Tüm kullanıcı verisi sadece cihazda saklanır, hiçbir hesap oluşturulmaz. Detaylar: [Gizlilik Politikası](https://gulfemkupeli.github.io/Anka-Addiction-Recovery-App/privacy-policy.html)
+All user data stays on-device; no account is ever created. Details: [Privacy Policy](https://gulfemkupeli.github.io/Anka-Addiction-Recovery-App/privacy-policy.html)
 
-## Geliştirici
+## Developer
 
 Gülfem Küpeli — gulfemkupeli@gmail.com
